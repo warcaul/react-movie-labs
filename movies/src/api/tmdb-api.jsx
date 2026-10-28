@@ -17,11 +17,11 @@ const fetchFromTMDB = (path, params = "") => {
   );
 };
 
-export const getMovies = () => {
-  return fetchFromTMDB(
-    "/discover/movie",
-    "&language=en-US&include_adult=false&include_video=false&page=1"
-  );
+// One function for every paged movie list (discover, popular, top rated, ...).
+// queryKey looks like: ["movies", { path: "/movie/popular", page: 2 }]
+export const getMovieList = ({ queryKey }) => {
+  const [, { path, page }] = queryKey;
+  return fetchFromTMDB(path, `&language=en-US&page=${page}`);
 };
 
 export const getMovie = ({ queryKey }) => {
@@ -44,30 +44,6 @@ export const getMovieReviews = ({ queryKey }) => {
   const [, idPart] = queryKey;
   const { id } = idPart;
   return fetchFromTMDB(`/movie/${id}/reviews`);
-};
-
-export const getUpcomingMovies = ({ queryKey }) => {
-  const [, pagePart] = queryKey;
-  const { page } = pagePart;
-  return fetchFromTMDB("/movie/upcoming", `&language=en-US&page=${page}`);
-};
-
-export const getPopularMovies = ({ queryKey }) => {
-  const [, pagePart] = queryKey;
-  const { page } = pagePart;
-  return fetchFromTMDB("/movie/popular", `&language=en-US&page=${page}`);
-};
-
-export const getTopRatedMovies = ({ queryKey }) => {
-  const [, pagePart] = queryKey;
-  const { page } = pagePart;
-  return fetchFromTMDB("/movie/top_rated", `&language=en-US&page=${page}`);
-};
-
-export const getNowPlayingMovies = ({ queryKey }) => {
-  const [, pagePart] = queryKey;
-  const { page } = pagePart;
-  return fetchFromTMDB("/movie/now_playing", `&language=en-US&page=${page}`);
 };
 
 export const getMovieCredits = ({ queryKey }) => {
