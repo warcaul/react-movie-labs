@@ -12,6 +12,7 @@ import img from '../../images/pexels-dziana-hasanbekava-5480827.jpg'
 import { getGenres } from "../../api/tmdb-api";
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../spinner';
+import Slider from "@mui/material/Slider";
 
 
 
@@ -54,6 +55,14 @@ export default function FilterMoviesCard(props) {
         handleChange(e, "genre", e.target.value);
     };
 
+    const handleRatingChange = (e, value) => {
+        props.onUserInput("rating", value);
+    };
+
+    const handleYearChange = (e) => {
+        handleChange(e, "year", e.target.value);
+    };
+
     return (
         <Card
             sx={{
@@ -94,6 +103,31 @@ export default function FilterMoviesCard(props) {
                         })}
                     </Select>
                 </FormControl>
+                <FormControl sx={{ ...formControl, padding: 1 }}>
+                    <Typography id="rating-slider" gutterBottom>
+                        Minimum rating: {props.ratingFilter}
+                    </Typography>
+                    <Slider
+                        aria-labelledby="rating-slider"
+                        value={props.ratingFilter}
+                        onChange={handleRatingChange}
+                        min={0}
+                        max={10}
+                        step={0.5}
+                        marks
+                        valueLabelDisplay="auto"
+                    />
+                </FormControl>
+
+                <TextField
+                    sx={{ ...formControl }}
+                    id="year-filter"
+                    label="Released in or after (year)"
+                    type="number"
+                    variant="filled"
+                    value={props.yearFilter}
+                    onChange={handleYearChange}
+                />
             </CardContent>
             <CardMedia
                 sx={{ height: 300 }}
