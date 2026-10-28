@@ -5,6 +5,7 @@ import Typography from "@mui/material/Typography";
 import Avatar from "@mui/material/Avatar";
 import Stack from "@mui/material/Stack";
 import Box from "@mui/material/Box";
+import { Link } from "react-router";
 
 const MovieCast = ({ movie }) => {
   const { data, error, isPending, isError } = useQuery({
@@ -31,21 +32,27 @@ const MovieCast = ({ movie }) => {
 
       <Stack direction="row" spacing={2} sx={{ overflowX: "auto", paddingY: 1 }}>
         {cast.map((actor) => (
-          <Box key={actor.id} sx={{ textAlign: "center", minWidth: 100 }}>
-            <Avatar
-              alt={actor.name}
-              src={
-                actor.profile_path
-                  ? `https://image.tmdb.org/t/p/w185/${actor.profile_path}`
-                  : undefined
-              }
-              sx={{ width: 80, height: 80, margin: "0 auto" }}
-            />
-            <Typography variant="body1">{actor.name}</Typography>
-            <Typography variant="body2" color="text.secondary">
-              {actor.character}
-            </Typography>
-          </Box>
+          <Link
+            key={actor.id}
+            to={`/actors/${actor.id}`}
+            style={{ textDecoration: "none", color: "inherit" }}
+          >
+            <Box sx={{ textAlign: "center", minWidth: 100 }}>
+              <Avatar
+                alt={actor.name}
+                src={
+                  actor.profile_path
+                    ? `https://image.tmdb.org/t/p/w185/${actor.profile_path}`
+                    : undefined
+                }
+                sx={{ width: 80, height: 80, margin: "0 auto" }}
+              />
+              <Typography variant="body1">{actor.name}</Typography>
+              <Typography variant="body2" color="text.secondary">
+                {actor.character}
+              </Typography>
+            </Box>
+          </Link>
         ))}
       </Stack>
     </>
