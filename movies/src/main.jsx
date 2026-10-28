@@ -13,10 +13,12 @@ import ActorDetailsPage from "./pages/actorDetailsPage";
 import SearchMoviesPage from "./pages/searchMoviesPage";
 import { ThemeProvider } from "@mui/material/styles";
 import CssBaseline from "@mui/material/CssBaseline";
-import theme from "./theme";
+import { getTheme } from "./theme";
 import MovieCategoryPage from "./pages/movieCategoryPage";
 import AddToFavoritesIcon from "./components/cardIcons/addToFavorites";
 import AddToPlaylistIcon from "./components/cardIcons/addToPlaylist";
+import { useState, useMemo } from "react";
+import useMediaQuery from "@mui/material/useMediaQuery";
 
 
 
@@ -35,12 +37,28 @@ const favoriteAction = (movie) => <AddToFavoritesIcon movie={movie} />;
 const playlistAction = (movie) => <AddToPlaylistIcon movie={movie} />
 
 const App = () => {
+
+  // true when the browser / operating system is set to dark mode
+  const prefersDark = useMediaQuery("(prefers-color-scheme: dark)", { noSsr: true });
+
+  // null = follow the browser setting; "light" / "dark" = the user picked one
+  const [chosenMode, setChosenMode] = useState(null);
+  const mode = chosenMode ?? (prefersDark ? "dark" : "light");
+
+  // Only rebuild the theme when the mode actually changes.
+  const theme = useMemo(() => getTheme(mode), [mode]);
+
+  const toggleMode = () => {
+    setChosenMode(mode === "light" ? "dark" : "light");
+  };
+
+
   return (
     <QueryClientProvider client={queryClient}>
       <ThemeProvider theme={theme}>
         <CssBaseline />
         <BrowserRouter>
-          <SiteHeader />
+          <SiteHeader mode={mode} onToggleMode={toggleMode} />
           <MoviesContextProvider>
             <Routes>
               <Route path="/movies/favorites" element={<FavoriteMoviesPage />} />

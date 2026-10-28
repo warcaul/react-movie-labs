@@ -11,10 +11,13 @@ import { useNavigate } from "react-router";
 import { styled } from '@mui/material/styles';
 import { useTheme } from "@mui/material/styles";
 import useMediaQuery from "@mui/material/useMediaQuery";
+import DarkModeIcon from "@mui/icons-material/DarkMode";
+import LightModeIcon from "@mui/icons-material/LightMode";
+import Tooltip from "@mui/material/Tooltip";
 
 const Offset = styled('div')(({ theme }) => theme.mixins.toolbar);
 
-const SiteHeader = () => {
+const SiteHeader = ({ mode, onToggleMode }) => {
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
 
@@ -102,6 +105,13 @@ const SiteHeader = () => {
               ))}
             </>
           )}
+
+          <Tooltip title={mode === "light" ? "Switch to dark mode" : "Switch to light mode"}>
+            <IconButton color="inherit" onClick={onToggleMode} aria-label="toggle dark mode">
+              {mode === "light" ? <DarkModeIcon /> : <LightModeIcon />}
+            </IconButton>
+          </Tooltip>
+
         </Toolbar>
       </AppBar>
       <Offset />
