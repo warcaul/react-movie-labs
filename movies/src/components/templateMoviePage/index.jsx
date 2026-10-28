@@ -1,4 +1,3 @@
-import { useState, useEffect } from "react";
 import MovieHeader from "../headerMovie";
 import Grid from "@mui/material/Grid";
 import ImageList from "@mui/material/ImageList";

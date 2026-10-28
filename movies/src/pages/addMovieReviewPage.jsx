@@ -5,7 +5,7 @@ import { useQuery } from "@tanstack/react-query";
 import { getMovie } from "../api/tmdb-api";
 import Spinner from "../components/spinner";
 
-const WriteReviewPage = (props) => {
+const WriteReviewPage = () => {
   const location = useLocation();
   const movieId = location.state.movieId;
 

@@ -5,7 +5,7 @@ import { getMovie } from '../api/tmdb-api'
 import { useQuery } from '@tanstack/react-query';
 import Spinner from '../components/spinner'
 
-const MoviePage = (props) => {
+const MoviePage = () => {
   const { id } = useParams();
   const { data: movie, error, isPending, isError } = useQuery({
     queryKey: ['movie', { id: id }],

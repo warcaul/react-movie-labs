@@ -87,7 +87,7 @@ const ReviewForm = ({ movie }) => {
     setRating(event.target.value);
   };
 
-  const handleSnackClose = (event) => {
+  const handleSnackClose = () => {
     setOpen(false);
     navigate("/movies/favorites");
   };
@@ -130,7 +130,7 @@ const ReviewForm = ({ movie }) => {
           control={control}
           rules={{ required: "Name is required" }}
           defaultValue=""
-          render={({ field: { onChange, value } }) => (
+          render={() => (
             <TextField
               sx={{ width: "40ch" }}
               variant="outlined"

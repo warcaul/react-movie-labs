@@ -5,7 +5,7 @@ import Spinner from '../components/spinner';
 import AddToFavoritesIcon from '../components/cardIcons/addToFavorites'
 
 
-const HomePage = (props) => {
+const HomePage = () => {
 
   const { data, error, isPending, isError } = useQuery({
     queryKey: ['discover'],
@@ -22,10 +22,6 @@ const HomePage = (props) => {
 
   const movies = data.results;
 
-  // Redundant, but necessary to avoid app crashing.
-  const favorites = movies.filter(m => m.favorite)
-  localStorage.setItem('favorites', JSON.stringify(favorites))
-  const addToFavorites = (movieId) => true
 
   return (
     <PageTemplate
