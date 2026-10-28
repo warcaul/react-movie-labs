@@ -1,13 +1,16 @@
 import { getTopRatedMovies } from "../api/tmdb-api";
 import PageTemplate from "../components/templateMovieListPage";
-import { useQuery } from "@tanstack/react-query";
+import { useQuery, keepPreviousData } from "@tanstack/react-query";
 import Spinner from "../components/spinner";
 import AddToFavoritesIcon from "../components/cardIcons/addToFavorites";
+import { useState } from "react";
 
 const TopRatedMoviesPage = () => {
+  const [page, setPage] = useState(1);
   const { data, error, isPending, isError } = useQuery({
-    queryKey: ["topRated"],
+    queryKey: ["topRated", { page: page }],
     queryFn: getTopRatedMovies,
+    placeholderData: keepPreviousData,
   });
 
   if (isPending) {
@@ -19,11 +22,15 @@ const TopRatedMoviesPage = () => {
   }
 
   const movies = data.results;
+  const totalPages = Math.min(data.total_pages, 500);
 
   return (
     <PageTemplate
       title="Top Rated Movies"
       movies={movies}
+      page={page}
+      totalPages={totalPages}
+      onPageChange={setPage}
       action={(movie) => {
         return <AddToFavoritesIcon movie={movie} />
       }}

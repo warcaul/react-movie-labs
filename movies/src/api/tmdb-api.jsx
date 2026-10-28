@@ -91,9 +91,11 @@ export const getMovieReviews = ({ queryKey }) => {
     });
 };
 
-export const getUpcomingMovies = () => {
+export const getUpcomingMovies = ({ queryKey }) => {
+  const [, pagePart] = queryKey;
+  const { page } = pagePart;
   return fetch(
-    `https://api.themoviedb.org/3/movie/upcoming?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
+    `https://api.themoviedb.org/3/movie/upcoming?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=${page}`
   ).then((response) => {
     if (!response.ok) {
       return response.json().then((error) => {
@@ -125,9 +127,11 @@ export const getPopularMovies = ({ queryKey }) => {
     });
 };
 
-export const getTopRatedMovies = () => {
+export const getTopRatedMovies = ({ queryKey }) => {
+  const [, pagePart] = queryKey;
+  const { page } = pagePart;
   return fetch(
-    `https://api.themoviedb.org/3/movie/top_rated?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
+    `https://api.themoviedb.org/3/movie/top_rated?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=${page}`
   ).then((response) => {
     if (!response.ok) {
       return response.json().then((error) => {
@@ -141,9 +145,11 @@ export const getTopRatedMovies = () => {
     });
 };
 
-export const getNowPlayingMovies = () => {
+export const getNowPlayingMovies = ({ queryKey }) => {
+  const [, pagePart] = queryKey;
+  const { page } = pagePart;
   return fetch(
-    `https://api.themoviedb.org/3/movie/now_playing?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=1`
+    `https://api.themoviedb.org/3/movie/now_playing?api_key=${import.meta.env.VITE_TMDB_KEY}&language=en-US&page=${page}`
   ).then((response) => {
     if (!response.ok) {
       return response.json().then((error) => {
