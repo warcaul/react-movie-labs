@@ -9,6 +9,7 @@ function MovieListPageTemplate({ movies, title, action }) {
   const [genreFilter, setGenreFilter] = useState("0");
   const [ratingFilter, setRatingFilter] = useState(0);
   const [yearFilter, setYearFilter] = useState("");
+  const [sortBy, setSortBy] = useState("none");
   const genreId = Number(genreFilter);
 
   let displayedMovies = movies
@@ -27,11 +28,22 @@ function MovieListPageTemplate({ movies, title, action }) {
       return m.release_date && m.release_date.slice(0, 4) >= yearFilter;
     });
 
+  // Sort a copy so the original movies array is not changed.
+  displayedMovies = [...displayedMovies].sort((a, b) => {
+    if (sortBy === "rating") return b.vote_average - a.vote_average;
+    if (sortBy === "popularity") return b.popularity - a.popularity;
+    if (sortBy === "newest") return (b.release_date || "").localeCompare(a.release_date || "");
+    if (sortBy === "oldest") return (a.release_date || "9999").localeCompare(b.release_date || "9999");
+    if (sortBy === "title") return a.title.localeCompare(b.title);
+    return 0; // "none" keeps the order from TMDB
+  });
+
   const handleChange = (type, value) => {
     if (type === "name") setNameFilter(value);
     else if (type === "genre") setGenreFilter(value);
     else if (type === "rating") setRatingFilter(value);
     else if (type === "year") setYearFilter(value);
+    else if (type === "sort") setSortBy(value);
   };
 
   return (
@@ -51,6 +63,7 @@ function MovieListPageTemplate({ movies, title, action }) {
             genreFilter={genreFilter}
             ratingFilter={ratingFilter}
             yearFilter={yearFilter}
+            sortBy={sortBy}
           />
         </Grid>
         <MovieList action={action} movies={displayedMovies}></MovieList>
