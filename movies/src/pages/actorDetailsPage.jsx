@@ -54,7 +54,7 @@ const ActorDetailsPage = () => {
             <Typography variant="h4" component="h2">
               {actor.name}
             </Typography>
-            <Typography variant="subtitle1" color="text.secondary">
+            <Typography variant="subtitle1" sx={{ color: "text.secondary" }}>
               {actor.birthday && `Born: ${actor.birthday}`}
               {actor.place_of_birth && ` in ${actor.place_of_birth}`}
             </Typography>

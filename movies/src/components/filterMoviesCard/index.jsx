@@ -71,7 +71,8 @@ export default function FilterMoviesCard(props) {
     return (
         <Card
             sx={{
-                backgroundColor: "rgb(204, 204, 0)"
+                backgroundColor: "secondary.main",
+                color: "secondary.contrastText"
             }}
             variant="outlined">
             <CardContent>
@@ -89,7 +90,7 @@ export default function FilterMoviesCard(props) {
                     onChange={handleTextChange}
                 />
 
-                <FormControl sx={{ ...formControl }}>
+                <FormControl variant="filled" sx={{ ...formControl }}>
                     <InputLabel id="genre-label">Genre</InputLabel>
                     <Select
                         labelId="genre-label"
@@ -109,7 +110,7 @@ export default function FilterMoviesCard(props) {
                     </Select>
                 </FormControl>
                 <FormControl sx={{ ...formControl, padding: 1 }}>
-                    <Typography id="rating-slider" gutterBottom>
+                    <Typography id="rating-slider" sx={{ color: "text.primary" }} gutterBottom>
                         Minimum rating: {props.ratingFilter}
                     </Typography>
                     <Slider
@@ -134,7 +135,7 @@ export default function FilterMoviesCard(props) {
                     onChange={handleYearChange}
                 />
 
-                <FormControl sx={{ ...formControl }}>
+                <FormControl variant="filled" sx={{ ...formControl }}>
                     <InputLabel id="sort-label">Sort by</InputLabel>
                     <Select
                         labelId="sort-label"
